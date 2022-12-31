@@ -1,1 +1,27 @@
+//GEEKFORGEEKS
 
+class Solution{
+    
+    /*------------------Recursion-------------------------*/
+     static Boolean isSubsetSum(int n, int arr[], int sum){
+       return helper(arr,sum,0);
+     }
+     static Boolean helper(int [] arr,int sum,int ind){
+         if(sum==0){
+             return true;
+         }
+         if(ind==arr.length){
+             return false;
+         }
+        
+         if(sum<arr[ind]){
+             return helper(arr,sum,ind+1);
+         }
+         else{
+             Boolean op1=helper(arr,sum,ind+1);
+             Boolean op2=helper(arr,sum-arr[ind],ind+1);
+             return op1||op2;
+         }
+     }
+     
+}
