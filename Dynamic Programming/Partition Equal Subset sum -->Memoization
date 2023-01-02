@@ -1,0 +1,26 @@
+//LeetCode 
+
+class Solution {
+    public boolean canPartition(int[] nums) {
+        int sum = 0;
+        for(int ele : nums ){
+            sum+=ele;
+        }
+        if(sum%2!=0) return false;
+        sum = sum/2;
+        Boolean memo[] =  new Boolean[sum+1];
+        return memoization(nums,memo,0,sum);        
+    }    
+    boolean memoization(int nums[], Boolean memo[] , int index , int target ){
+        
+      if(target==0) return true;        
+      if(target<0 || index>=nums.length ) return false;
+            
+        if(memo[target]!=null) return memo[target];
+        
+        boolean res1 = memoization(nums,memo,index+1,target-nums[index]) ;
+        if(res1)  return memo[target] = res1;
+        boolean res2 =  memoization(nums,memo,index+1,target);        
+        return memo[target] = res2;                                
+    }
+}
