@@ -1,0 +1,50 @@
+
+
+//User function Template for Java
+//Geeksforgeeks
+
+class Solution
+{
+    static int lcs( String s1, String s2)
+    {
+        // your code here
+        int x = s1.length();
+        int y = s2.length();
+         int[][] t = new int[x+1][y+1];
+        //fill the rows and col for n==0 , m==0 (base case);
+        for(int i=0;i<=x;i++){
+            for(int j=0;j<=y;j++){
+                if(i==0){
+                    t[i][j]=0;
+                }
+                else if(j==0){
+                    t[i][j]=0;
+                }
+            }
+        }
+        //choice diagram code=> top-down approch
+        for(int i=1;i<=x;i++){
+            for(int j=1;j<=y;j++){
+                if(s1.charAt(i-1)==s2.charAt(j-1)){
+                    t[i][j]=1+t[i-1][j-1];
+                }
+                else{
+                    t[i][j]=Math.max(t[i][j-1],t[i-1][j]);
+                }
+            }
+        }
+        return t[x][y];
+    }
+    
+    
+    public int longestPalinSubseq(String s)
+    {
+        //code here
+     String str="";
+     for (int i=0; i<s.length(); i++){
+       char ch= s.charAt(i); 
+        str= ch+str;
+      }
+      return lcs(s,str);
+    }
+}
