@@ -1,0 +1,31 @@
+//Geeksforgeeks
+class Solution {
+    // Function to return a list containing the DFS traversal of the graph.
+    public ArrayList<Integer> dfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
+
+        //Declare a arrayList to store the element of the graph
+        ArrayList<Integer> ans = new ArrayList<>();
+        
+        //Declare a boolean array to track the record of visied element
+        boolean visited [] = new boolean [V];
+        dfs(adj , 0 , V , ans , visited);
+        return ans;
+        
+    }
+     private void dfs( ArrayList<ArrayList<Integer>> adj , int src , int n ,
+     ArrayList<Integer> list , boolean [] visited) {
+         
+         // Mark the element is visited 
+         visited[src] = true;
+         
+         // add in list 
+         list.add(src);
+         
+         //Call for non-visited neighbours recursively 
+         for (int neighbours_adj : adj.get(src)){
+             if (visited[neighbours_adj] == false){
+                 dfs(adj , neighbours_adj , n , list , visited);
+             }
+         }
+     }
+}
