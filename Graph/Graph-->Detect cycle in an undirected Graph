@@ -1,0 +1,35 @@
+class Solution {
+    // Function to detect cycle in an undirected graph.
+    
+    private boolean dfs(  ArrayList<ArrayList<Integer>> graph , int src , int parent , boolean [] visited){
+        //Mark the src visited verties 
+        visited[src] = true;
+        //call the neightbours
+        for(int nbr : graph.get(src)){
+            if (visited[nbr] == true && nbr != parent){
+                return true;
+            }
+            else if (visited[nbr] == false){
+                
+                //call dfs
+                boolean val = dfs(graph , nbr , src , visited);
+                if (val) return true;
+                
+            }
+        }
+        return false;
+    }
+    public boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj) {
+        // Code here
+        //Create a boolean array to track ther ecord of visited element
+        boolean visited [] = new boolean [V];
+        //Call dfs for all non-visited vertices
+        for (int i = 0 ; i < V ; i++){
+            if (visited [i] == false){
+                int parent = -1;
+                if(dfs(adj , i , parent , visited)) return true;
+            }
+        }
+        return false;
+    }
+}
