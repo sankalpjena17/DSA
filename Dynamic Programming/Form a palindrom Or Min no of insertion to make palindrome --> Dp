@@ -1,0 +1,45 @@
+//GeeksforGeeks
+
+class Solution{
+    static int lcs(int x, int y, String s1, String s2)
+    {
+        // your code here
+         int[][] t = new int[x+1][y+1];
+        //fill the rows and col for n==0 , m==0 (base case);
+        for(int i=0;i<=x;i++){
+            for(int j=0;j<=y;j++){
+                if(i==0){
+                    t[i][j]=0;
+                }
+                else if(j==0){
+                    t[i][j]=0;
+                }
+            }
+        }
+        //choice diagram code=> top-down approch
+        for(int i=1;i<=x;i++){
+            for(int j=1;j<=y;j++){
+                if(s1.charAt(i-1)==s2.charAt(j-1)){
+                    t[i][j]=1+t[i-1][j-1];
+                }
+                else{
+                    t[i][j]=Math.max(t[i][j-1],t[i-1][j]);
+                }
+            }
+        }
+        return t[x][y];
+    }
+    
+    int findMinInsertions(String S){
+        // code here
+        int n = S.length();
+        String S2 = "";
+        char ch ;
+        for(int i= 0 ; i< n ; i++){
+            ch = S.charAt(i);
+            S2 = ch + S2;
+        }
+        int value = lcs(n , n , S , S2);
+        return n - value ;
+    }
+}
