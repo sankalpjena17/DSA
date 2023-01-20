@@ -1,0 +1,62 @@
+//Geeksforgeeks
+class Solution{
+   static int palindromicPartition(String str)
+    {
+        // code here
+        int [][]dp=new int[501][501];
+        
+        for(int i=0;i<501;i++){
+            for(int j=0;j<501;j++){
+                dp[i][j]=-1;
+            }
+        }
+        return solve(str,0,str.length()-1,dp);
+    }
+    public static int solve(String str,int i,int j,int [][]dp){
+        
+        if(i>=j){
+            return 0;
+        }
+        if(palid(str,i,j)){
+            return 0;
+        }
+        if(dp[i][j]!=-1){
+            return dp[i][j];
+        }
+        int left=0,right=0;
+        int min=Integer.MAX_VALUE;
+        for(int k=i;k<=j-1;k++){
+            if(dp[i][k]!=-1){
+                    left=dp[i][k];
+            }
+            else{
+                left=solve(str,i,k,dp);
+                dp[i][k]=left;
+            }
+            if(dp[k+1][j]!=-1){
+                    right=dp[k+1][j];
+            }
+            else{
+                right=solve(str,k+1,j,dp);
+                dp[k+1][j]=right;
+            }
+            int temp=1+left+right;
+            min=Math.min(min,temp);
+        }
+        return dp[i][j]=min;
+    }
+    public static boolean palid(String str,int i,int j){
+        if(i==j)
+        return true;
+        if(i>j)
+        return true;
+        while(i<j){
+            if(str.charAt(i)!=str.charAt(j)){
+                return false;
+            }
+            i++;
+            j--;
+        }
+        return true;
+    }
+}
