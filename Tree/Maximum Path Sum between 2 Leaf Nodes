@@ -1,0 +1,41 @@
+//Geeksforgeeks
+
+/* class Node
+{
+    int data;
+    Node left, right;
+
+    Node(int item)
+    {
+        data = item;
+        left = right = null;
+    }
+} */
+
+ 
+ 
+class Solution
+{
+    int res = Integer.MIN_VALUE;
+    int solve(Node root){
+        //Base case
+        if(root == null) return 0;
+        
+        //Hypothesis
+        int left = solve(root.left);
+        int right = solve(root.right);
+        
+        //Induction
+       res = Math.max(res , root.data + left + right);
+       if(left + right + root.data <= 0) return 0;
+        //return res;
+        return root.data + Math.max(left , right);
+    }
+    
+    int maxPathSum(Node root)
+    { 
+        // code here 
+        solve(root);
+        return res;
+    } 
+}
