@@ -1,0 +1,40 @@
+//Geeksforgeeks
+
+/*class Node {
+    int data;
+    Node left;
+    Node right;
+    Node(int data) {
+        this.data = data;
+        left = null;
+        right = null;
+    }
+}*/
+
+class Solution {
+    // Function to return the diameter of a Binary Tree.
+    int res = 1;
+    int solve(Node root) {
+        //Base case
+        if(root == null) return 0;
+        
+        //hypothesis
+        int left = solve(root.left );
+        int right = solve(root.right );
+        
+        //Induction
+        
+        int temp = Math.max(left , right ) + 1 ;
+        int ans = Math.max(temp , left + right + 1);
+        res = Math.max(ans , res);
+        
+        return temp;
+        
+    }
+    int diameter(Node root) {
+        // Your code here
+        solve(root);
+        return res;
+        
+    }
+}
