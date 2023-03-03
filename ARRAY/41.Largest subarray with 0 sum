@@ -1,0 +1,31 @@
+
+class GfG
+{
+    int maxLen(int nums[], int n)
+    {
+       Map<Integer, Integer> map = new HashMap<>();
+    int maxLength = 0;
+    int sum = 0;
+    
+    // Iterate through the array and keep track of the sum of elements
+    // seen so far and the index at which each sum was seen
+    for (int i = 0; i < nums.length; i++) {
+        sum += nums[i];
+        // If the sum is 0, then the subarray from the start to this index has a sum of 0
+        if (sum == 0) {
+            maxLength = i + 1;
+        }
+        // If the same sum has been seen before, then the subarray between the
+        // current index and the index at which the same sum was seen before has a sum of 0
+        else if (map.containsKey(sum)) {
+            maxLength = Math.max(maxLength, i - map.get(sum));
+        }
+        // Store the sum and the index in the map
+        else {
+            map.put(sum, i);
+        }
+    }
+    
+    return maxLength;
+    }
+}
