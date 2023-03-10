@@ -1,0 +1,19 @@
+
+//User function Template for Java//User function Template for Java
+class Solution{
+    ArrayList<Integer> subsetSums(ArrayList<Integer> arr, int N){
+        // code here
+        ArrayList<Integer> ans = new ArrayList<Integer>();
+        allSumSubSet(arr,N,0,0,ans);
+        return ans;
+    }
+    
+    void allSumSubSet(ArrayList<Integer> arr,int len,int ind,int sum,ArrayList<Integer> ans){
+        if(ind==len){
+            ans.add(sum);
+            return;
+        }
+        allSumSubSet(arr,len,ind+1,sum+arr.get(ind),ans);
+        allSumSubSet(arr,len,ind+1,sum,ans);
+    }
+}
