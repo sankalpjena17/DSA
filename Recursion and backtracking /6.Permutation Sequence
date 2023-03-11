@@ -1,0 +1,30 @@
+
+class Solution {
+    public String getPermutation(int n, int k) {
+        //Create a list of numbers from 1 to n 
+        List<Integer> numbers = new ArrayList<>();
+        for(int i = 1; i <= n ; i++){
+            numbers.add(i);
+        }
+
+        //Create an array to store the factorials
+        int [] factorial = new int [n+1];
+        factorial[0] = 1;
+        //Storing the factorial 
+        for(int i = 1 ; i <= n ; i++){
+            factorial[i] = i * factorial[i-1];
+        }
+        //Decrement k to account for 0-based indexing
+        k--;
+         // Build the result string by selecting each digit
+         StringBuilder sb = new StringBuilder();
+         for(int i = n ; i > 0 ; i--){
+             int index = k / factorial[i-1];
+             sb.append(numbers.remove(index));
+             k-= index * factorial[i-1];
+
+         }
+         return sb.toString();
+    }
+}
+
