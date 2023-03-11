@@ -1,0 +1,44 @@
+
+class Solution {
+    private List<List<String>> res;
+    public List<List<String>> partition(String s) {
+        res = new ArrayList<>();
+        partitionSolve(s , new ArrayList<>());
+        return res;
+        
+    }
+
+    private boolean isPalindrome(String s ){
+        int low = 0 ;
+        int high = s.length()-1;
+
+        while(low < high){
+            if(s.charAt(low) != s.charAt(high))
+                return false;
+            low++;
+            high--;
+        }
+        return true;
+    }
+    
+
+    private void partitionSolve(String str , List<String>ans){
+        if(str.length() == 0){
+            res.add(new ArrayList<>(ans));
+            return;
+        }
+        for(int i = 0 ; i < str.length() ; i++){
+            String prefix = str.substring(0 , i + 1);
+            if(isPalindrome(prefix)){
+                String rest = str.substring(i + 1);
+                ans.add(prefix);
+                partitionSolve(rest , ans);
+                ans.remove(ans.size()-1);
+            }
+        }
+    }
+}
+
+
+
+
