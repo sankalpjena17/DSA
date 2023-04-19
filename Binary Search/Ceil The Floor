@@ -1,0 +1,51 @@
+class Solve {
+
+    // Function to find floor and ceil of x
+    // arr: input array
+    // n: size of array
+    // x: element to find floor and ceil of
+    static Pair getFloorAndCeil(int[] arr, int n, int x) {
+        int low = 0;
+        int high = n - 1;
+        int floor = -1;
+        int ceil = -1;
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+
+            if (arr[mid] == x) {
+                // if element is found at mid
+                floor = mid;
+                ceil = mid;
+                break;
+            } else if (arr[mid] < x) {
+                // if element is greater than mid element
+                floor = mid;
+                low = mid + 1;
+            } else {
+                // if element is smaller than mid element
+                ceil = mid;
+                high = mid - 1;
+            }
+        }
+
+        // if element is not found in array
+        if (floor == -1 && ceil == -1) {
+            return null;
+        }
+
+        // if floor is not found
+        if (floor == -1) {
+            return new Pair(-1, arr[ceil]);
+        }
+
+        // if ceil is not found
+        if (ceil == -1) {
+            return new Pair(arr[floor], -1);
+        }
+
+        // if both floor and ceil are found
+        return new Pair(arr[floor], arr[ceil]);
+    }
+    
+}
