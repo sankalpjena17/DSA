@@ -1,0 +1,28 @@
+class Solution {
+
+    public static int findPosition(int[] arr, int target) {
+        int low = 0;
+        int high = 1;
+
+        // Keep doubling the interval until the target lies within the interval
+        while (arr[high] < target) {
+            low = high;
+            high *= 2;
+        }
+
+        // Perform binary search within the identified interval
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            if (arr[mid] == target) {
+                return mid;
+            } else if (arr[mid] < target) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+
+        // If the target is not found, return -1
+        return -1;
+    }
