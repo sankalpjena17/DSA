@@ -1,0 +1,50 @@
+public class Solution {
+    public int books(int[] A, int B) {
+        if(B > A.length){
+            return -1;
+        }
+        
+        int totalPages = 0, maxPages = Integer.MIN_VALUE;
+
+        for (int pages : A) {
+            totalPages += pages;
+            maxPages = Math.max(maxPages, pages);
+        }
+
+        int start = maxPages, end = totalPages;
+        int result = Integer.MAX_VALUE;
+
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+
+            if (isValidAllocation(A, B, mid)) {
+                result = Math.min(result, mid);
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        }
+
+        return result;
+    }
+    
+    private static boolean isValidAllocation(int[] books, int numberOfStudents, int maxPagesPerStudent) {
+        int studentsRequired = 1;
+        int pagesAllocated = 0;
+
+        for (int pages : books) {
+            if (pagesAllocated + pages <= maxPagesPerStudent) {
+                pagesAllocated += pages;
+            } else {
+                studentsRequired++;
+                pagesAllocated = pages;
+
+                if (studentsRequired > numberOfStudents) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+}
