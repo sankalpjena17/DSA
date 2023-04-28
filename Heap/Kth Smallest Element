@@ -1,17 +1,16 @@
- private static int findKthSmallest(int[] arr, int k) {
-        // Create a min-heap using PriorityQueue
-        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
-
-        // Add all elements to the min-heap
-        for (int i = 0; i < arr.length; i++) {
-            minHeap.offer(arr[i]);
+class Solution{
+    public static int kthSmallest(int[] arr, int l, int r, int k) 
+    { 
+        //Your code here
+        int n = arr.length;
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Comparator.reverseOrder());
+        
+        for(int i = 0 ; i < n; i++) {
+            maxHeap.offer(arr[i]);
+            if(maxHeap.size()  > k ){
+                maxHeap.poll();
+            }
         }
-
-        // Remove the smallest element (k-1) times
-        for (int i = 1; i < k; i++) {
-            minHeap.poll();
-        }
-
-        // Return the kth smallest element
-        return minHeap.poll();
-    }
+        return maxHeap.peek();
+    } 
+}
