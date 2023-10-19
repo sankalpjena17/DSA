@@ -1,0 +1,35 @@
+
+
+
+//Approach:-
+ //Problem is very simple first store the left then store the right value and 
+ //Then the root value
+
+
+public class Solution {
+    public int[] postorderTraversal(TreeNode A) {
+        ArrayList<Integer> ans = new ArrayList<>();
+        //calling the preorder function 
+        PostOrder(A , ans);
+        //storing in array 
+        int [] res = new int[ans.size()];
+        for(int i = 0 ; i < ans.size() ; i++){
+            res[i] = ans.get(i);
+        }
+        return res;
+    }
+    public void PostOrder(TreeNode A , ArrayList<Integer> ans){
+        if(A == null){
+            //if nothing is there than just return 
+            return;
+        }
+        //Preorder = Data -> Left -> Right 
+        
+        //traverse left 
+        PostOrder(A.left , ans);
+        //traverse right
+        PostOrder(A.right , ans);
+        //add the value at last as it is postorder 
+        ans.add(A.val);
+    }
+}
