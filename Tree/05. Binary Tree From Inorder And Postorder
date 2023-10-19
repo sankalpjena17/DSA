@@ -1,0 +1,43 @@
+
+
+
+Approach:-
+        The problem is simple that as we know in postorder root is the last element so , 
+        we search the last element in the inorder list and devide the list according to that 
+        but the deviding left and right part is tricky we need to draw the intuation so that we can
+        know the left and right node.
+        And here we are using hashmap so that it can find the root in inorder list in constant time 
+        complexity 
+
+
+
+public class Solution {
+    public TreeNode buildTree(ArrayList<Integer> A, ArrayList<Integer> B) {
+        if(A.size() != B.size()){
+            return null;
+        }
+        HashMap<Integer , Integer> map = new HashMap<>();
+        for(int i = 0 ; i < A.size() ; i++){
+            map.put(A.get(i) , i);
+        }
+        return Solve(A , B , 0 , A.size() - 1 , 0 , B.size() - 1 , map);
+    }
+    private TreeNode Solve(ArrayList<Integer> A , ArrayList<Integer> B , int inStart , int inEnd , int postStart , int postEnd , Map<Integer , Integer> indexMap){
+        if(postStart > postEnd || inStart > inEnd){
+            return null;
+        }
+        //find the root which is last element of the postorder 
+        int rootValue = B.get(postEnd);
+        TreeNode root = new TreeNode(rootValue);
+
+        int rootIndexInorder = indexMap.get(rootValue);
+        int elementOnRight = inEnd - rootIndexInorder;
+
+        //bulding the left and right node from the root 
+        root.left = Solve(A , B , inStart , rootIndexInorder - 1 , postStart , postEnd - elementOnRight - 1 , indexMap);
+        root.right = Solve(A , B , rootIndexInorder + 1 , inEnd , postEnd - elementOnRight , postEnd - 1 , indexMap);
+
+        return root;
+    }
+}
+
