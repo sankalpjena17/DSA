@@ -1,0 +1,32 @@
+
+
+Approach:- 
+    bit tricky traversal than the other traversal, 
+    Here we need a queue so that we can store or add in rear and can poll the data from the front
+    we add the root in the queue , 
+    store the data , and check for the left and right child and add in the queue 
+    And do the same steps for every node and their child , and store the value in a list 
+
+public class Solution {
+    public ArrayList<ArrayList<Integer>> solve(TreeNode A) {
+        Queue<TreeNode> q = new LinkedList<>();
+        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+        q.add(A);
+        while(!q.isEmpty()){
+            int size = q.size();
+            ArrayList<Integer> list = new ArrayList<>();
+            for(int i = 0 ; i < size ; i++){
+                TreeNode temp = q.poll();
+                list.add(temp.val);
+                if(temp.left != null){
+                    q.add(temp.left);
+                }
+                if(temp.right != null){
+                    q.add(temp.right);
+                }
+            }
+            res.add(list);
+        }
+        return res;
+    }
+}
